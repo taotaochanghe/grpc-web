@@ -15,6 +15,8 @@
 set -ex
 
 cd "$(dirname "$0")"/..
-git submodule --quiet update --init --recursive
+# git submodule --quiet update --init --recursive
+# curl cip.cc
+git submodule  update --init --recursive
 (cd third_party/closure-library && git checkout tags/v20201102)
 (cd third_party/protobuf && git checkout tags/v3.15.6)

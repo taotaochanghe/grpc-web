@@ -31,11 +31,12 @@ COPY ./packages ./packages
 COPY ./scripts ./scripts
 COPY ./src ./src
 COPY ./test ./test
+COPY ./.gitmodules ./.gitmodules
 
 RUN ./scripts/init_submodules.sh
 
 RUN cd ./packages/grpc-web && \
-  npm install && \
+  npm --registry https://registry.npm.taobao.org install && \
   npm run build && \
   npm link
 
@@ -46,8 +47,7 @@ RUN wget -nv -O buildifier \
   rm ./buildifier
 
 RUN wget -nv -O bazel-installer.sh \
-  https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/\
-bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
+  https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-installer-linux-x86_64.sh && \
   chmod +x ./bazel-installer.sh && \
   ./bazel-installer.sh && \
   rm ./bazel-installer.sh
